@@ -12,9 +12,14 @@ export default {
       colors: {
         VeryDarkGray: 'hsl(0, 0%, 17%)',
         DarkGray: 'hsl(0, 0%, 59%)',
-      }
+      },
+      fontWeight: {
+        light: 400,
+        regular: 500,
+        bold: 700,
+      },
     },
   },
-  plugins: [],
+  plugins: [require('daisyui')],
 }
 
