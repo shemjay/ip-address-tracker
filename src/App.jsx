@@ -3,6 +3,9 @@ import Map from './Components/Map'
 import Tracker from './Components/Tracker'
 import './App.css'
 
+// IP Geolocation API by IPify: https://geo.ipify.org/
+// LeafletJS: https://leafletjs.com/ 
+
 function App() {
 
   return (
