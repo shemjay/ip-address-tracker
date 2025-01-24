@@ -3,37 +3,28 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 import { ArrowRightIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
 
-const Tracker = () => {
+const Tracker = ( {ipData, ipDataError} ) => { //These need to be fixed see the most recent deepseek chat ans start from there
   const [ipAddress, setIpAddress] = useState("");
   const [ipError, setIpError] = useState(null);
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     if (ipAddress.trim() === "") {
       console.log("Please enter a valid IP Address");
       return;
     } else {
-      fetchIPAddress();
+      fetchIPInformation();
     }
   };
 
-  const fetchIPAddress = async () => {
+  const fetchIPInformation = async () => {
     try {
-      const response = await fetch(
-        `https://geo.ipify.org/api/v2/country?apiKey=at_UGACLWcsZmDiEdv4lr633DaWMFHB6&ipAddress=${ipAddress}`
-      );
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await response.json();
-      console.log(data);
-      setIpAddress(data.ip);
-      return data;
+      const response = await axios.get(`https://geo.ipify.org/api/v2/country?apiKey=at_UGACLWcsZmDiEdv4lr633DaWMFHB6&ipAddress=${ipAddress}`)
+      console.log(response.data)
     } catch (error) {
-      setIpError(error);
-      console.log("Error fetching first API", error);
+      console.error("Error: ", error);
     }
-  };
+  }
 
   const handleInputChange = (e) => {
     setIpAddress(e.target.value);
@@ -52,7 +43,7 @@ const Tracker = () => {
         <label className="input input-bordered flex items-center bg-white gap-2 w-full font-light overflow-hidden">
           <input
             type="text"
-            className="grow"
+            className="grow cursor-pointer"
             placeholder="Search for any IP Address or Domain"
             value={ipAddress}
             onChange={(e) => handleInputChange(e)}
