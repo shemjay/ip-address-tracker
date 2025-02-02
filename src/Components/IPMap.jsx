@@ -1,13 +1,33 @@
-import { React } from "react";
-import { MapContainer, TileLayer, useMap, Marker, Popup } from "react-leaflet";
-
+import { React, useState, useEffect } from "react";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import { useIpContext } from "../Context/IPContext";
 
 const IPMap = () => {
-  const position = [51.505, -0.09];
+  const { ipInfo } = useIpContext();
+
+  const [position, setPosition] = useState([0, 0]); // Default position is [0, 0]
+
+  useEffect(() => {
+    if (ipInfo && ipInfo.loc) {
+      const [latitude, longitude] = ipInfo.loc.split(",");
+      setPosition([parseFloat(latitude), parseFloat(longitude)]);
+    }
+  }, [ipInfo]);
+
+  const MapPanToPosition = () => {
+    const map = useMap();
+    useEffect(() => {
+      if (map) {
+        map.setView(position, map.getZoom(), { animate: true });
+      }
+    }, [position, map]);
+    return null;
+  };
+
   return (
     <div className="w-full h-3/5 relative z-10">
       <MapContainer
-        style={{ width: "100%", height: '100%' }} //if leafletjs Map dissapears add a static height value with no parentheses and unit e.g height: 500
+        style={{ width: "100%", height: "100%" }} //if leafletjs Map dissapears add a static height value with no parentheses and unit e.g height: 500
         center={position}
         zoom={13}
         scrollWheelZoom={false}
@@ -16,6 +36,7 @@ const IPMap = () => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        <MapPanToPosition />
         <Marker position={position}>
           <Popup>
             A pretty CSS3 popup. <br /> Easily customizable.

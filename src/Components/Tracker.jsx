@@ -1,56 +1,46 @@
 import React, { useEffect, useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { ArrowRightIcon } from "@heroicons/react/24/solid";
-import axios from "axios";
+import { useIpContext } from "../Context/IPContext";
 
 const Tracker = () => {
   const [ipUserInput, setIpUserInput] = useState("");
-  const [ipError, setIpError] = useState(null);
-  const [ipInfo, setIpInfo] = useState(null)
+  const { ipInfo, setIpInfo, ipError, setIpError, fetchIPInformation } =
+    useIpContext();
 
   //Fetch IP Information on load
+  //UNCOMMENT DURING FINAL SOLUTION
   useEffect(() => {
     fetchIPInformation();
   }, []);
 
+  //Handle input ip and domain validation
   const validateIPorDomain = (value) => {
     const ipv4Regex =
-    /^(25[0-5]|2[0-4][0-9]|1?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|1?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|1?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|1?[0-9][0-9]?)$/;
+      /^(25[0-5]|2[0-4][0-9]|1?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|1?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|1?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|1?[0-9][0-9]?)$/;
 
-  const ipv6Regex =
-    /^(([a-fA-F0-9]{1,4}:){7,7}[a-fA-F0-9]{1,4}|([a-fA-F0-9]{1,4}:){1,7}:|([a-fA-F0-9]{1,4}:){1,6}:[a-fA-F0-9]{1,4}|([a-fA-F0-9]{1,4}:){1,5}(:[a-fA-F0-9]{1,4}){1,2}|([a-fA-F0-9]{1,4}:){1,4}(:[a-fA-F0-9]{1,4}){1,3}|([a-fA-F0-9]{1,4}:){1,3}(:[a-fA-F0-9]{1,4}){1,4}|([a-fA-F0-9]{1,4}:){1,2}(:[a-fA-F0-9]{1,4}){1,5}|[a-fA-F0-9]{1,4}:((:[a-fA-F0-9]{1,4}){1,6})|:((:[a-fA-F0-9]{1,4}){1,7}|:)|fe80:(:[a-fA-F0-9]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([a-fA-F0-9]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))$/;
+    const ipv6Regex =
+      /^(([a-fA-F0-9]{1,4}:){7,7}[a-fA-F0-9]{1,4}|([a-fA-F0-9]{1,4}:){1,7}:|([a-fA-F0-9]{1,4}:){1,6}:[a-fA-F0-9]{1,4}|([a-fA-F0-9]{1,4}:){1,5}(:[a-fA-F0-9]{1,4}){1,2}|([a-fA-F0-9]{1,4}:){1,4}(:[a-fA-F0-9]{1,4}){1,3}|([a-fA-F0-9]{1,4}:){1,3}(:[a-fA-F0-9]{1,4}){1,4}|([a-fA-F0-9]{1,4}:){1,2}(:[a-fA-F0-9]{1,4}){1,5}|[a-fA-F0-9]{1,4}:((:[a-fA-F0-9]{1,4}){1,6})|:((:[a-fA-F0-9]{1,4}){1,7}|:)|fe80:(:[a-fA-F0-9]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([a-fA-F0-9]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))$/;
 
-  const domainRegex =
-    /^(?!-)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,63}(?<!-)$/;
-  return ipv4Regex.test(value) || ipv6Regex.test(value) || (value.length <= 255 && domainRegex.test(value));
+    const domainRegex = /^(?!-)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,63}(?<!-)$/;
+    return (
+      ipv4Regex.test(value) ||
+      ipv6Regex.test(value) ||
+      (value.length <= 255 && domainRegex.test(value))
+    );
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (ipUserInput.trim() === "") {
-      setIpInfo(null)
+      setIpInfo(null);
       setIpError("Please enter a valid IP Address or Domain");
       return;
     } else if (ipUserInput.trim() !== "" && validateIPorDomain(ipUserInput)) {
       fetchIPInformation(ipUserInput);
-      setIpError(null)
+      setIpError(null);
     } else {
       setIpError("Invalid IP Address or Domain");
-    }
-  };
-
-  const fetchIPInformation = async (ip = "") => {
-    try {
-      const response = await axios.get(
-        //`https://geo.ipify.org/api/v2/country?apiKey=at_UGACLWcsZmDiEdv4lr633DaWMFHB6&ipAddress=${ip}`
-      );
-      console.log(response.data);
-      setIpInfo(response.data);
-      setIpError(null)
-    } catch (error) {
-      console.error("API Error: ", error);
-      setIpError(error.message);
-      setIpInfo(null)
     }
   };
 
@@ -61,7 +51,7 @@ const Tracker = () => {
 
   const handleClear = () => {
     setIpUserInput("");
-    setIpError(null)
+    setIpError(null);
   };
 
   return (
@@ -87,14 +77,12 @@ const Tracker = () => {
               onClick={(e) => handleClear(e)}
             />
           </div>
-          {ipError === null ? null 
-        : 
-        <div className="absolute bottom-[-50%] left-0">
-          <p className="text-red-500 text-[0.75rem]">Error: {ipError}</p>
-        </div>
-        }
+          {ipError === null ? null : (
+            <div className="absolute bottom-[-50%] left-0">
+              <p className="text-red-500 text-[0.75rem]">Error: {ipError}</p>
+            </div>
+          )}
         </label>
-        
       </div>
       {/* IP Address Input End */}
 
@@ -107,7 +95,13 @@ const Tracker = () => {
               IP Address
             </p>
             <h2 className="text-2xl text-VeryDarkGray font-regular">
-            {ipError !== null ? "N/A" : ipInfo ? <span>{ipInfo.ip}</span> : "N/A"}
+              {ipError !== null ? (
+                "N/A"
+              ) : ipInfo ? (
+                <span>{ipInfo.ip}</span>
+              ) : (
+                "N/A"
+              )}
             </h2>
           </li>
           <li className="mb-4 flex items-center flex-col">
@@ -115,7 +109,13 @@ const Tracker = () => {
               Location
             </p>
             <h2 className="text-2xl text-VeryDarkGray font-regular">
-            {ipError !== null ? "N/A" : ipInfo ? <span>{`${ipInfo.location?.country}, ${ipInfo.location?.region}`}</span> : "N/A"}
+              {ipError !== null ? (
+                "N/A"
+              ) : ipInfo ? (
+                <span>{`${ipInfo.region}, ${ipInfo.countryCode}`}</span>
+              ) : (
+                "N/A"
+              )}
             </h2>
           </li>
           <li className="mb-4 flex items-center flex-col">
@@ -123,7 +123,13 @@ const Tracker = () => {
               Timezone
             </p>
             <h2 className="text-2xl text-VeryDarkGray font-regular">
-              {ipError !== null ? "N/A" : ipInfo ? <span>{ipInfo.location?.timezone}</span> : "N/A"}
+              {ipError !== null ? (
+                "N/A"
+              ) : ipInfo ? (
+                <span>{ipInfo.timezone}</span>
+              ) : (
+                "N/A"
+              )}
             </h2>
           </li>
           <li className="mb-4 flex items-center flex-col">
@@ -131,7 +137,13 @@ const Tracker = () => {
               ISP
             </p>
             <h2 className="text-2xl text-VeryDarkGray font-regular">
-              {ipError !== null ? "N/A" : ipInfo ? <span>{ipInfo.isp}</span> : "N/A"}
+              {ipError !== null ? (
+                "N/A"
+              ) : ipInfo ? (
+                <span>{ipInfo.org}</span>
+              ) : (
+                "N/A"
+              )}
             </h2>
           </li>
         </ul>
