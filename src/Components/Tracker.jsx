@@ -10,9 +10,9 @@ const Tracker = () => {
 
   //Fetch IP Information on load
   //UNCOMMENT DURING FINAL SOLUTION
-  useEffect(() => {
-    fetchIPInformation();
-  }, []);
+  // useEffect(() => {
+  //   fetchIPInformation();
+  // }, []);
 
   //Handle input ip and domain validation
   const validateIPorDomain = (value) => {
@@ -59,22 +59,26 @@ const Tracker = () => {
       {/* IP Address Input */}
       <div className="flex items-center flex-col gap-6 font-regular text-VeryDarkGray w-1/2 mb-24">
         <h1 className="text-white text-4xl font-Rubik">IP Address Tracker</h1>
-        <label className="relative input input-bordered flex items-center bg-white gap-2 w-full font-light">
+        <label className="relative input input-bordered flex items-center bg-white gap-2 w-full font-light"> {/*When i change this the error no longer works this is infuriating*/}
           <input
             type="text"
-            className="grow cursor-pointer"
+            className="grow cursor-pointer" {/*When i change this the error no longer works this is infuriating*/}
             placeholder="Search for any IP Address or Domain"
             value={ipUserInput}
             onChange={(e) => handleInputChange(e)}
           />
-          <div className="bg-black border-2 border-red flex items-center justify-between w-12 h-12">
-            <ArrowRightIcon
-              className="cursor-pointer fill-current text-white w-6 h-full flex items-center justify-center"
-              onClick={(e) => handleSubmit(e)}
-            />
+          <div className="bg-black absolute inset-y-0 right-0 flex items-center">
             <XMarkIcon
-              className="h-full w-6 fill-current text-white cursor-pointer"
+              className="h-full w-6 fill-current text-white cursor-pointer transition duration-300 ease-in-out hover:bg-DarkGray"
               onClick={(e) => handleClear(e)}
+            />
+            <ArrowRightIcon
+              type="submit"
+              className="cursor-pointer fill-current text-white w-6 h-full flex items-center justify-center transition duration-300 ease-in-out hover:bg-DarkGray"
+              onClick={(e) => {
+                e.preventDefault();
+                handleSubmit(e);
+              }}
             />
           </div>
           {ipError === null ? null : (
@@ -87,10 +91,9 @@ const Tracker = () => {
       {/* IP Address Input End */}
 
       {/* IP Address Container Start */}
-      {/*TWEAK THE BOX SHADOW ON THIS */}
-      <div className="bg-white p-12 flex items-center justify-center rounded-lg absolute bottom-[-5rem] w-4/5 [box-shadow:0_10px_6px_-1px_rgba(0,0,0,0.3),0_2px_4px_-2px_rgba(0,0,0,0.1)] ">
-        <ul className="flex items-center justify-between w-full gap-18 ">
-          <li className="mb-4 flex items-center flex-col">
+      <div className="bg-white p-10 flex items-center justify-center rounded-lg absolute bottom-[-5rem] w-4/5 [box-shadow:5px_10px_6px_-1px_rgba(0,0,0,0.3),0_2px_4px_-2px_rgba(0,0,0,0.1)] ">
+        <ul className="flex items-center justify-between w-full gap-4">
+          <li className="flex items-left justify-center flex-col p-2 border-r-2 w-full border-gray-300">
             <p className="uppercase text-[0.75rem] font-bold pb-2 w-full text-left tracking-widest">
               IP Address
             </p>
@@ -104,7 +107,7 @@ const Tracker = () => {
               )}
             </h2>
           </li>
-          <li className="mb-4 flex items-center flex-col">
+          <li className="flex items-left justify-center flex-col p-2 border-r-2 w-full border-gray-300">
             <p className="uppercase text-[0.75rem] font-bold pb-2 w-full text-left tracking-widest">
               Location
             </p>
@@ -112,13 +115,13 @@ const Tracker = () => {
               {ipError !== null ? (
                 "N/A"
               ) : ipInfo ? (
-                <span>{`${ipInfo.region}, ${ipInfo.countryCode}`}</span>
+                <span>{`${ipInfo.region}, ${ipInfo.country}`}</span>
               ) : (
                 "N/A"
               )}
             </h2>
           </li>
-          <li className="mb-4 flex items-center flex-col">
+          <li className="flex items-left justify-center flex-col p-2 border-r-2 w-full border-gray-300">
             <p className="uppercase text-[0.75rem] font-bold pb-2 w-full text-left tracking-widest">
               Timezone
             </p>
@@ -132,7 +135,7 @@ const Tracker = () => {
               )}
             </h2>
           </li>
-          <li className="mb-4 flex items-center flex-col">
+          <li className="flex items-left justify-center flex-col p-2 w-full">
             <p className="uppercase text-[0.75rem] font-bold pb-2 w-full text-left tracking-widest">
               ISP
             </p>

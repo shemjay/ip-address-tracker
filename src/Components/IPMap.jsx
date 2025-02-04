@@ -18,7 +18,12 @@ const IPMap = () => {
     const map = useMap();
     useEffect(() => {
       if (map) {
-        map.setView(position, map.getZoom(), { animate: true });
+        map.flyTo(
+          position,
+          map.getZoom(),
+          { animate: true },
+          { duration: 2.5 }
+        );
       }
     }, [position, map]);
     return null;
