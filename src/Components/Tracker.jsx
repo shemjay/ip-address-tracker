@@ -57,17 +57,19 @@ const Tracker = () => {
   return (
     <div className="h-2/5 w-full bg-[url('../../images/pattern-bg-desktop.png')] bg-cover bg-center relative flex items-center justify-center z-20">
       {/* IP Address Input */}
-      <div className="flex items-center flex-col gap-6 font-regular text-VeryDarkGray w-1/2 mb-24">
-        <h1 className="text-white text-4xl font-Rubik">IP Address Tracker</h1>
-        <label className="relative input input-bordered flex items-center bg-white gap-2 w-full font-light"> {/*When i change this the error no longer works this is infuriating*/}
+      <div className="flex items-center flex-col gap-2 md:gap-6 font-regular text-center text-VeryDarkGray w-1/2 mb-24">
+        <h1 className="text-white text-sm sm:text-lg md:text-2xl lg:text-4xl font-Rubik">
+          IP Address Tracker
+        </h1>
+        <label className="relative overflow-hidden input input-bordered flex items-center bg-white gap-2 w-full font-light">
           <input
             type="text"
-            className="grow cursor-pointer" {/*When i change this the error no longer works this is infuriating*/}
+            className="grow cursor-pointer"
             placeholder="Search for any IP Address or Domain"
             value={ipUserInput}
             onChange={(e) => handleInputChange(e)}
           />
-          <div className="bg-black absolute inset-y-0 right-0 flex items-center">
+          <div className="bg-black absolute inset-y-0 right-0 flex ">
             <XMarkIcon
               className="h-full w-6 fill-current text-white cursor-pointer transition duration-300 ease-in-out hover:bg-DarkGray"
               onClick={(e) => handleClear(e)}
@@ -91,63 +93,69 @@ const Tracker = () => {
       {/* IP Address Input End */}
 
       {/* IP Address Container Start */}
-      <div className="bg-white p-10 flex items-center justify-center rounded-lg absolute bottom-[-5rem] w-4/5 [box-shadow:5px_10px_6px_-1px_rgba(0,0,0,0.3),0_2px_4px_-2px_rgba(0,0,0,0.1)] ">
-        <ul className="flex items-center justify-between w-full gap-4">
-          <li className="flex items-left justify-center flex-col p-2 border-r-2 w-full border-gray-300">
-            <p className="uppercase text-[0.75rem] font-bold pb-2 w-full text-left tracking-widest">
+      <div className="bg-white sm:p-4 md:p-8 lg-p-10 flex items-center justify-center rounded-lg absolute bottom-[-5rem] w-4/5 [box-shadow:5px_10px_6px_-1px_rgba(0,0,0,0.3),0_2px_4px_-2px_rgba(0,0,0,0.1)] ">
+        <ul className="flex items-center justify-between w-full gap-0 sm:gap-4 flex-col sm:flex-col md:flex-row lg:flex-row">
+          <li className="flex items-center lg:items-left justify-center flex-col md:border-r-2 w-full border-b-2 border-gray-300 ">
+            <p className="uppercase text-[0.55rem] lg:text-[0.75rem] font-bold lg:pb-2 w-full text-center sm:text-left tracking-widest">
               IP Address
             </p>
-            <h2 className="text-2xl text-VeryDarkGray font-regular">
+            <div className=" w-full lg:text-left text-center text-VeryDarkGray font-regular">
               {ipError !== null ? (
                 "N/A"
               ) : ipInfo ? (
-                <span>{ipInfo.ip}</span>
+                <span className="text-xs sm:text-sm md:text-md lg:text-lg">
+                  {ipInfo.ip}
+                </span>
               ) : (
                 "N/A"
               )}
-            </h2>
+            </div>
           </li>
-          <li className="flex items-left justify-center flex-col p-2 border-r-2 w-full border-gray-300">
-            <p className="uppercase text-[0.75rem] font-bold pb-2 w-full text-left tracking-widest">
+          <li className="flex items-center lg:items-left justify-center flex-col  md:border-r-2 w-full  border-b-2 border-gray-300 ">
+            <p className="uppercase text-[0.55rem] lg:text-[0.75rem] font-bold lg:pb-2 w-full text-center sm:text-left tracking-widest">
               Location
             </p>
-            <h2 className="text-2xl text-VeryDarkGray font-regular">
+            <div className=" w-full lg:text-left text-center text-VeryDarkGray font-regular">
               {ipError !== null ? (
                 "N/A"
               ) : ipInfo ? (
-                <span>{`${ipInfo.region}, ${ipInfo.country}`}</span>
+                <span className="text-xs sm:text-sm md:text-md lg:text-lg">{`${ipInfo.region}, ${ipInfo.country}`}</span>
               ) : (
                 "N/A"
               )}
-            </h2>
+            </div>
           </li>
-          <li className="flex items-left justify-center flex-col p-2 border-r-2 w-full border-gray-300">
-            <p className="uppercase text-[0.75rem] font-bold pb-2 w-full text-left tracking-widest">
+          <li className="flex items-center lg:items-left justify-center flex-col md:border-r-2 border-b-2 w-full  border-gray-300 ">
+            <p className="uppercase text-[0.55rem] lg:text-[0.75rem] font-bold lg:pb-2 w-full text-center sm:text-left tracking-widest">
               Timezone
             </p>
-            <h2 className="text-2xl text-VeryDarkGray font-regular">
+            <div className=" w-full lg:text-left text-center text-VeryDarkGray font-regular">
               {ipError !== null ? (
                 "N/A"
               ) : ipInfo ? (
-                <span>{ipInfo.timezone}</span>
+                <span className="text-xs sm:text-sm md:text-md lg:text-lg">
+                  {ipInfo.timezone}
+                </span>
               ) : (
                 "N/A"
               )}
-            </h2>
+            </div>
           </li>
-          <li className="flex items-left justify-center flex-col p-2 w-full">
-            <p className="uppercase text-[0.75rem] font-bold pb-2 w-full text-left tracking-widest">
+          <li className="flex items-center lg:items-left justify-center flex-col w-full">
+            <p className="uppercase text-[0.55rem] lg:text-[0.75rem] font-bold lg:pb-2 w-full text-center sm:text-left tracking-widest">
               ISP
             </p>
-            <h2 className="text-2xl text-VeryDarkGray font-regular">
+            <div className=" w-full lg:text-left text-center text-VeryDarkGray font-regular">
               {ipError !== null ? (
                 "N/A"
               ) : ipInfo ? (
-                <span>{ipInfo.org}</span>
+                <span className="text-xs sm:text-sm md:text-md lg:text-lg">
+                  {ipInfo.org}
+                </span>
               ) : (
                 "N/A"
               )}
-            </h2>
+            </div>
           </li>
         </ul>
       </div>
