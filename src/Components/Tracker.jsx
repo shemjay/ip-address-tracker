@@ -10,9 +10,9 @@ const Tracker = () => {
 
   //Fetch IP Information on load
   //UNCOMMENT DURING FINAL SOLUTION
-  // useEffect(() => {
-  //   fetchIPInformation();
-  // }, []);
+  useEffect(() => {
+    fetchIPInformation();
+  }, []);
 
   //Handle input ip and domain validation
   const validateIPorDomain = (value) => {
@@ -46,7 +46,6 @@ const Tracker = () => {
 
   const handleInputChange = (e) => {
     setIpUserInput(e.target.value);
-    console.log(ipUserInput);
   };
 
   const handleClear = () => {
@@ -93,65 +92,65 @@ const Tracker = () => {
       {/* IP Address Input End */}
 
       {/* IP Address Container Start */}
-      <div className="bg-white sm:p-4 md:p-8 lg-p-10 flex items-center justify-center rounded-lg absolute bottom-[-5rem] w-4/5 [box-shadow:5px_10px_6px_-1px_rgba(0,0,0,0.3),0_2px_4px_-2px_rgba(0,0,0,0.1)] ">
-        <ul className="flex items-center justify-between w-full gap-0 sm:gap-4 flex-col sm:flex-col md:flex-row lg:flex-row">
-          <li className="flex items-center lg:items-left justify-center flex-col md:border-r-2 w-full border-b-2 border-gray-300 ">
-            <p className="uppercase text-[0.55rem] lg:text-[0.75rem] font-bold lg:pb-2 w-full text-center sm:text-left tracking-widest">
+      <div className="bg-white sm:p-4 md:p-8 lg-p-10 flex items-center justify-center rounded-lg absolute bottom-[-5rem] sm:bottom-[-6rem] md:bottom-[-4rem] lg:bottom-[-4rem] w-4/5 [box-shadow:5px_10px_6px_-1px_rgba(0,0,0,0.3),0_2px_4px_-2px_rgba(0,0,0,0.1)] ">
+        <ul className="flex items-center justify-between w-full gap-2 sm:gap-4 flex-col sm:flex-col md:flex-row lg:flex-row">
+          <li className="flex items-center lg:items-left justify-center flex-col w-full max-md:border-b-2 border-gray-300 md:border-r-2 md:border-gray-300">
+            <p className="uppercase text-[0.55rem] lg:text-[0.75rem] font-bold w-full text-center md:text-left tracking-widest">
               IP Address
             </p>
             <div className=" w-full lg:text-left text-center text-VeryDarkGray font-regular">
               {ipError !== null ? (
                 "N/A"
               ) : ipInfo ? (
-                <span className="text-xs sm:text-sm md:text-md lg:text-lg">
+                <p className="  text-[0.75rem] md:text-[0.95rem] lg:text-lg">
                   {ipInfo.ip}
-                </span>
+                </p>
               ) : (
                 "N/A"
               )}
             </div>
           </li>
-          <li className="flex items-center lg:items-left justify-center flex-col  md:border-r-2 w-full  border-b-2 border-gray-300 ">
-            <p className="uppercase text-[0.55rem] lg:text-[0.75rem] font-bold lg:pb-2 w-full text-center sm:text-left tracking-widest">
+          <li className="flex items-center lg:items-left justify-center flex-col max-md:border-b-2 border-gray-300 md:border-r-2 md:border-gray-300 w-full">
+            <p className="uppercase text-[0.55rem] lg:text-[0.75rem] font-bold  w-full text-center md:text-left tracking-widest">
               Location
             </p>
             <div className=" w-full lg:text-left text-center text-VeryDarkGray font-regular">
               {ipError !== null ? (
                 "N/A"
               ) : ipInfo ? (
-                <span className="text-xs sm:text-sm md:text-md lg:text-lg">{`${ipInfo.region}, ${ipInfo.country}`}</span>
+                <p className=" text-[0.75rem] md:text-[0.95rem] lg:text-lg">{`${ipInfo.region}, ${ipInfo.country}`}</p>
               ) : (
                 "N/A"
               )}
             </div>
           </li>
-          <li className="flex items-center lg:items-left justify-center flex-col md:border-r-2 border-b-2 w-full  border-gray-300 ">
-            <p className="uppercase text-[0.55rem] lg:text-[0.75rem] font-bold lg:pb-2 w-full text-center sm:text-left tracking-widest">
+          <li className="flex items-center lg:items-left justify-center flex-col max-md:border-b-2 border-gray-300 md:border-r-2 md:border-gray-300 w-full">
+            <p className="uppercase text-[0.55rem] lg:text-[0.75rem] font-bold  w-full text-center md:text-left tracking-widest">
               Timezone
             </p>
             <div className=" w-full lg:text-left text-center text-VeryDarkGray font-regular">
               {ipError !== null ? (
                 "N/A"
               ) : ipInfo ? (
-                <span className="text-xs sm:text-sm md:text-md lg:text-lg">
+                <p className=" text-[0.75rem] md:text-[0.95rem] lg:text-lg">
                   {ipInfo.timezone}
-                </span>
+                </p>
               ) : (
                 "N/A"
               )}
             </div>
           </li>
           <li className="flex items-center lg:items-left justify-center flex-col w-full">
-            <p className="uppercase text-[0.55rem] lg:text-[0.75rem] font-bold lg:pb-2 w-full text-center sm:text-left tracking-widest">
+            <p className="uppercase text-[0.55rem] lg:text-[0.75rem] font-bold  w-full text-center md:text-left tracking-widest">
               ISP
             </p>
             <div className=" w-full lg:text-left text-center text-VeryDarkGray font-regular">
               {ipError !== null ? (
                 "N/A"
               ) : ipInfo ? (
-                <span className="text-xs sm:text-sm md:text-md lg:text-lg">
+                <p className=" text-[0.75rem] md:text-[0.95rem] lg:text-lg">
                   {ipInfo.org}
-                </span>
+                </p>
               ) : (
                 "N/A"
               )}

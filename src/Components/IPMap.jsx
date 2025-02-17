@@ -43,9 +43,7 @@ const IPMap = () => {
         />
         <MapPanToPosition />
         <Marker position={position}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
+          <Popup>{`This is ${ipInfo.city}, ${ipInfo.country}`}</Popup>
         </Marker>
       </MapContainer>
     </div>

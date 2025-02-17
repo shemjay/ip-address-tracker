@@ -17,11 +17,9 @@ export const IpProvider = ({ children }) => {
       const response = await axios.get(url);
       setIpInfo(response.data);
       setIpError(null);
-      console.log(response.data);
     } catch (error) {
       setIpError(error.message);
       setIpInfo(null);
-      console.log(error.message);
     }
   };
 
