@@ -43,7 +43,13 @@ const IPMap = () => {
         />
         <MapPanToPosition />
         <Marker position={position}>
-          <Popup>{`This is ${ipInfo.city}, ${ipInfo.country}`}</Popup>
+          <Popup>
+            {ipInfo ? (
+              <p>
+                `This is ${ipInfo.city}, ${ipInfo.country}`
+              </p>
+            ) : null}
+          </Popup>
         </Marker>
       </MapContainer>
     </div>

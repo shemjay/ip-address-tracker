@@ -1,8 +1,45 @@
-# React + Vite
+## Table of contents
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- [Overview](#overview)
+  - [Screenshot](#screenshot)
+  - [Links](#links)
+- [My process](#my-process)
+  - [Built with](#built-with)
+  - [Continued development](#continued-development)
+  - [Useful resources](#useful-resources)
+- [Author](#author)
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Screenshot
+
+![](../ip-address-tracker-master/images/solution.PNG)
+
+### Links
+
+- Live Site URL: (https://tracetail.netlify.app/)
+
+## My process
+
+### Built with
+
+- Semantic HTML5 markup
+- Tailwind CSS
+- React JS
+- Axios
+
+### Continued development
+
+- Responsive design in Tailwind.
+  Damn i made a mess of the code in this one. So
+  much spaghetti code this should be written in Italian.
+- Need to work more on working with global contexts.
+  Specifically the React context API and state managers like Zustand
+
+### Useful resources
+
+- [IPInfo.io](https://www.example.com) - A MUCH better ip address API that actually gives ip address info
+
+## Author
+
+- Shem ♥
