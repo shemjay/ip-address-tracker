@@ -17,8 +17,6 @@
 
 ### Links
 
-<!-- FIX THIS ASAP -->
-
 - Live Site URL: (https://tracetail.netlify.app/)
 
 ## My process

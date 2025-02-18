@@ -54,7 +54,7 @@ const Tracker = () => {
   };
 
   return (
-    <div className="h-2/5 w-full bg-[url('../public/pattern-bg-desktop.png')] bg-cover bg-center relative flex items-center justify-center z-20">
+    <div className="h-2/5 w-full bg-[url('./pattern-bg-desktop.png')] bg-cover bg-center relative flex items-center justify-center z-20">
       {/* IP Address Input */}
       <div className="flex items-center flex-col gap-2 md:gap-6 font-regular text-center text-VeryDarkGray w-1/2 mb-24">
         <h1 className="text-white text-sm sm:text-lg md:text-2xl lg:text-4xl font-Rubik">
