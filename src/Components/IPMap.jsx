@@ -45,9 +45,7 @@ const IPMap = () => {
         <Marker position={position}>
           <Popup>
             {ipInfo ? (
-              <p>
-                `This is ${ipInfo.city}, ${ipInfo.country}`
-              </p>
+              <p>{`This is ${ipInfo.city}, ${ipInfo.country}`}</p>
             ) : null}
           </Popup>
         </Marker>
